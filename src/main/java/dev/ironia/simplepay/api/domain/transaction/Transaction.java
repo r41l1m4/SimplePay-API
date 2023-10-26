@@ -2,13 +2,11 @@ package dev.ironia.simplepay.api.domain.transaction;
 
 import dev.ironia.simplepay.api.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity(name = "transactions")
 @Table(name = "transactions")
@@ -16,6 +14,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Transaction {
 
     @Id
@@ -31,5 +30,5 @@ public class Transaction {
     @JoinColumn(name = "sentTo_id")
     private User sentTo;
 
-    private LocalDate timestamp;
+    private LocalDateTime timestamp;
 }
