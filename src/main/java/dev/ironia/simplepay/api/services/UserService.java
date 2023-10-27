@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -36,5 +37,9 @@ public class UserService {
         User user = new User(userDto);
         this.save(user);
         return user;
+    }
+
+    public List<User> getAllUsers() {
+        return this.userRepository.findAll();
     }
 }
