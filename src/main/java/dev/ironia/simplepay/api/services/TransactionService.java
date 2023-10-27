@@ -21,8 +21,9 @@ public class TransactionService {
     private UserService userService;
     private TransactionRepository transactionRepository;
     private RestTemplate restTemplate;
+    private NotificationService notificationService;
 
-    public void createTransaction(TransactionDto transactionDto) throws Exception {
+    public Transaction createTransaction(TransactionDto transactionDto) throws Exception {
         User sentFrom = userService.findUserById(transactionDto.sentFromId());
         User sentTo = userService.findUserById(transactionDto.sentToId());
 
@@ -44,9 +45,17 @@ public class TransactionService {
         transactionRepository.save(transaction);
         userService.save(sentFrom);
         userService.save(sentTo);
+        
+        this.notificationService.sendNotification(
+                sentFrom,
+                "R$ " + transaction.getAmount() + " enviado para " + sentTo.getFirstName() + " " + sentTo.getLastName() + "."
+        );
+        this.notificationService.sendNotification(
+                sentTo,
+                "R$ " + transaction.getAmount() + " recebido de " + sentFrom.getFirstName() + " " + sentFrom.getLastName() + "."
+        );
 
-
-
+        return transaction;
     }
 
     public boolean authorizeTransaction(User sentFrom, BigDecimal value) {
