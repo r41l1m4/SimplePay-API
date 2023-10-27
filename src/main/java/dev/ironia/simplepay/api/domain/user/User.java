@@ -1,5 +1,6 @@
 package dev.ironia.simplepay.api.domain.user;
 
+import dev.ironia.simplepay.api.dtos.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,4 +33,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDto userDto) {
+        this.firstName = userDto.firstName();
+        this.lastName = userDto.lastName();
+        this.document = userDto.document();
+        this.email = userDto.email();
+        this.password = userDto.password();
+        this.balance = userDto.balance();
+        this.userType = userDto.userType();
+    }
 }

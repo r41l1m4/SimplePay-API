@@ -2,6 +2,7 @@ package dev.ironia.simplepay.api.services;
 
 import dev.ironia.simplepay.api.domain.user.User;
 import dev.ironia.simplepay.api.domain.user.UserType;
+import dev.ironia.simplepay.api.dtos.UserDto;
 import dev.ironia.simplepay.api.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,11 @@ public class UserService {
 
     public void save(User user) {
         this.userRepository.save((user));
+    }
+
+    public User createUser(UserDto userDto) {
+        User user = new User(userDto);
+        this.save(user);
+        return user;
     }
 }
